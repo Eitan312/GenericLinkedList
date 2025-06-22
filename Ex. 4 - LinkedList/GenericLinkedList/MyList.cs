@@ -31,6 +31,12 @@ namespace GenericLinkedList
 
         public void Add(T item)
         {
+            if(_head == null)
+            {
+                _head = new MyItem<T>(item);
+                return;
+            }
+
             MyItem<T> pointer = _head;
 
             while (pointer.NextItem != null)
