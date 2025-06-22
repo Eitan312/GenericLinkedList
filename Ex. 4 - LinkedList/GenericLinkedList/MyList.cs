@@ -12,10 +12,12 @@ namespace GenericLinkedList
     {
         [AllowNull]
         private MyItem<T> _head;
+        private int _count;
 
         public MyList()
         {
             _head = null;
+            _count = 0;
         }
 
         public MyList(MyItem<T> head)
@@ -23,26 +25,19 @@ namespace GenericLinkedList
             this._head = head;
         }
 
-        private int GetCount()
-        {
-            MyItem<T> pointer = _head;
-            int count = 0;
-
-            while(pointer != null)
-            {
-                count++;
-                pointer = (MyItem<T>)pointer.NextItem;
-            }
-
-            return count;
-        }
-
-        public int Count => GetCount();
+        public int Count => _count;
 
         public bool IsReadOnly => false;
 
         public void Add(T item)
         {
+            if(_head == null)
+            {
+                _head = new MyItem<T>(item);
+                _count++;
+                return;
+            }
+
             MyItem<T> pointer = _head;
 
             while (pointer.NextItem != null)
@@ -51,11 +46,13 @@ namespace GenericLinkedList
             }
 
             pointer.NextItem = new MyItem<T>(item);
+            _count++;
         }
 
         public void Clear()
         {
             _head = null;
+            _count = 0;
         }
 
         public bool Contains(T item)
@@ -85,6 +82,7 @@ namespace GenericLinkedList
             if (_head.Content.Equals(item))
             {
                 _head = (MyItem<T>)_head.NextItem;
+                _count--;
                 return true;
             }
 
@@ -99,6 +97,7 @@ namespace GenericLinkedList
             }
 
             pointer.NextItem = pointer.NextItem.NextItem;
+            _count--;
             return true;
         }
 
