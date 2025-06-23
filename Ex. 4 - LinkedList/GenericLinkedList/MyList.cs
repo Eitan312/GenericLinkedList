@@ -57,35 +57,31 @@ namespace GenericLinkedList
                 return;
             }
 
-            MyItem<T> pointer;
-
             if (_head == null)
             {
                 _head = new MyItem<T>(node);
                 _count++;
                 node = (MyItem<T>)node.NextItem;
-                pointer = _head;
 
                 while(node != null)
                 {
-                    pointer.NextItem = node;
                     _count++;
                     node = (MyItem<T>)node.NextItem;
                 }
             }
 
-            pointer = _head;
+            MyItem<T> pointer = _head;
 
-            while(pointer.NextItem != null)
+            while (pointer.NextItem != null)
             {
                 pointer = (MyItem<T>)pointer.NextItem;
             }
 
+            pointer.NextItem = node;
+
             while (node != null)
             {
-                pointer.NextItem = node;
                 _count++;
-                pointer = (MyItem<T>)pointer.NextItem;
                 node = (MyItem<T>)node.NextItem;
             }
         }
