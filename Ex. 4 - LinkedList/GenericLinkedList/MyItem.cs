@@ -26,6 +26,17 @@ namespace GenericLinkedList
             _content = content;
         }
 
+        public MyItem(MyItem<T> item)
+        {
+            if(item == null || item.Content == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            _content = item.Content;
+            _nextItem = (MyItem<T>)item.NextItem;
+        }
+
         public MyItem(T content, MyItem<T> next) 
         {
             if (content == null)
