@@ -49,6 +49,47 @@ namespace GenericLinkedList
             _count++;
         }
 
+        public void Add(MyItem<T> node)
+        {
+            if (node == null)
+            {
+                Console.WriteLine("Cant Add Null To List!");
+                return;
+            }
+
+            MyItem<T> pointer;
+
+            if (_head == null)
+            {
+                _head = new MyItem<T>(node);
+                _count++;
+                node = (MyItem<T>)node.NextItem;
+                pointer = _head;
+
+                while(node != null)
+                {
+                    pointer.NextItem = node;
+                    _count++;
+                    node = (MyItem<T>)node.NextItem;
+                }
+            }
+
+            pointer = _head;
+
+            while(pointer.NextItem != null)
+            {
+                pointer = (MyItem<T>)pointer.NextItem;
+            }
+
+            while (node != null)
+            {
+                pointer.NextItem = node;
+                _count++;
+                pointer = (MyItem<T>)pointer.NextItem;
+                node = (MyItem<T>)node.NextItem;
+            }
+        }
+
         public void Clear()
         {
             _head = null;
