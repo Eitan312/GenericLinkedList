@@ -31,6 +31,13 @@ namespace GenericLinkedList
 
         public void Add(T item)
         {
+            // In case T is a nullable type
+            if(item == null)
+            {
+                Console.WriteLine("Value Has To Exist!");
+                return;
+            }
+
             if(_head == null)
             {
                 _head = new MyItem<T>(item);
@@ -68,6 +75,8 @@ namespace GenericLinkedList
                     _count++;
                     node = (MyItem<T>)node.NextItem;
                 }
+
+                return;
             }
 
             MyItem<T> pointer = _head;
